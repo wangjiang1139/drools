@@ -1,5 +1,31 @@
 package rules;
 import com.cn.drool.domain.Customer;
+
+query "query fact count"
+Customer();
+end
+
+rule "rule1"
+       salience 2
+       when
+            eval(true);
+       then
+            Customer customer = new Customer();
+            customer.setName("张三");
+            customer.setAge(1);
+            insert(customer);
+       end
+
+rule  "rule2"
+       salience 1
+       when
+            $customer:Customer(name=="张三",age<10);
+       then
+            System.out.println("规则执行，年龄为："+"------------"+$customer.getAge());
+            $customer.setAge($customer.getAge()+1);
+            update($customer);
+            System.out.println("姓名："+$customer.getName()+"年龄："+$customer.getAge());
+       end
 /*
 rule "is a first droolsdemo"
 
@@ -9,7 +35,7 @@ then
    System.out.println($customer.getName());
  end*/
 
- rule "rule1"
+ /*rule "rule1"
     salience 2
   when
     eval(true);
@@ -26,7 +52,7 @@ then
     then
      System.out.println("rule2"+":"+$customer.getName());
     end
-
+*/
 
 
 

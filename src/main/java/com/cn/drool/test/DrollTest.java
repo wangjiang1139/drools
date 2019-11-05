@@ -10,13 +10,13 @@
  */
 package com.cn.drool.test;
 
-import com.cn.drool.domain.Customer;
 import org.drools.core.impl.InternalKnowledgeBase;
 import org.drools.core.impl.KnowledgeBaseFactory;
 import org.kie.api.KieBaseConfiguration;
 import org.kie.api.definition.KiePackage;
 import org.kie.api.io.ResourceType;
 import org.kie.api.runtime.KieSession;
+import org.kie.api.runtime.rule.QueryResults;
 import org.kie.internal.builder.KnowledgeBuilder;
 import org.kie.internal.builder.KnowledgeBuilderFactory;
 import org.kie.internal.io.ResourceFactory;
@@ -50,13 +50,17 @@ public class DrollTest {
         InternalKnowledgeBase knowledgeBase = KnowledgeBaseFactory.newKnowledgeBase(kbConfig);
         knowledgeBase.addPackages(packages);
         KieSession session = knowledgeBase.newKieSession();
-        Customer customer = new Customer();
-        customer.setName("zhangsan");
-        customer.setAge(30);
+       // Customer customer = new Customer();
+       // customer.setName("zhangsan");
+      //  customer.setAge(30);
 //        session.update();
-        session.insert(customer);
+//        session.insert(customer);
         session.fireAllRules();
         session.dispose();
+        QueryResults qr = session.getQueryResults("query fact count");
+        System.out.println("customer对象的数目为："+qr.size());
+        System.out.println("结束========================");
+
     }
 
 }
