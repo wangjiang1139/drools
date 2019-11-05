@@ -1,9 +1,32 @@
 package rules;
 import com.cn.drool.domain.Customer;
+/*
 rule "is a first droolsdemo"
 
 when
     $customer:Customer(age>20)
 then
    System.out.println($customer.getName());
- end
+ end*/
+
+ rule "rule1"
+    salience 2
+  when
+    eval(true);
+  then
+       Customer customer = new Customer();
+       customer.setName("张三");
+    insert(customer);
+   end
+
+   rule "rule2"
+   salience 1
+    when
+     $customer:Customer(name == "张三");
+    then
+     System.out.println("rule2"+":"+$customer.getName());
+    end
+
+
+
+
