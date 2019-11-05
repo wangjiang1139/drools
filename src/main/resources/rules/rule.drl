@@ -1,0 +1,9 @@
+package rules;
+import com.cn.drool.domain.Customer;
+rule "is a first droolsdemo"
+
+when
+    $customer:Customer(age>20)
+then
+   System.out.println($customer.getName());
+ end
